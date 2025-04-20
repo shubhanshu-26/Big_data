@@ -111,7 +111,4 @@ spark.sql("""
     HAVING total_ratings >= 10
     ORDER BY genre, avg_rating DESC
 """).show(50, truncate=False)
-🔚 Optional: Save as PDF or Share GitHub
 You can download the notebook as PDF (File > Print > Save as PDF)
-
-Or push it to GitHub for your resume
