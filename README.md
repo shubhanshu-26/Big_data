@@ -1,51 +1,36 @@
-🎬 Project: Basic Movie Recommendation System
+🎬 Project: Movie Recommendation System
 ✅ Objective
 Build a system that recommends the most popular and highest-rated movies for each genre using Spark SQL and PySpark.
 
-🧱 Tools & Tech Stack
+🧱 Tools & Tech Stack Used
 PySpark: Data processing
-
 Spark SQL: Data analysis
-
 HDFS: Store input CSV files
-
 MySQL (optional): Store output or top recommendations
-
-Jupyter Notebook: Your working environment
+Jupyter Notebook: Working environment
 -----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-📂 Dataset
-Use the classic MovieLens dataset – choose the small ml-latest-small.zip.
+📂 Dataset used
+Used the classic MovieLens dataset
 
-Files you'll use:
-
+Files used:
 movies.csv → movieId, title, genres
-
 ratings.csv → userId, movieId, rating, timestamp
 -----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
-Option : Use Google Colab + PySpark + Google Drive
+Option being used : Google Colab + PySpark + Google Drive
 You can run PySpark in Google Colab and load files from Google Drive.
 
 Pros:
 No setup required.
-
-Can use Spark on Colab (limited but good enough).
-
-Free GPU/TPU if needed.
-
+Can use Spark on Colab.
 Easy to share notebooks via GitHub or PDF.
 -----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 ✅ Step 1: Open Google Colab
-Go to https://colab.research.google.com
-
-Create a new notebook.
+Created a new jupyter notebook.
 
 ✅ Step 2: Install PySpark
 Add this cell at the top:
 
-python
-Copy
-Edit
 !apt-get install openjdk-11-jdk-headless -qq > /dev/null
 !wget https://archive.apache.org/dist/spark/spark-3.5.0/spark-3.5.0-bin-hadoop3.tgz -O spark.tgz
 !tar xf spark-3.5.0-bin-hadoop3.tgz
@@ -58,9 +43,7 @@ os.environ["SPARK_HOME"] = "/content/spark-3.5.0-bin-hadoop3"
 import findspark
 findspark.init()
 ✅ Step 3: Start a SparkSession
-python
-Copy
-Edit
+
 from pyspark.sql import SparkSession
 
 spark = SparkSession.builder \
@@ -69,20 +52,15 @@ spark = SparkSession.builder \
 
 spark
 ✅ Step 4: Mount Google Drive (to access CSVs)
-python
-Copy
-Edit
+
 from google.colab import drive
 drive.mount('/content/drive')
-After this, you’ll see a link — authorize and paste the code.
+authorization of personal drive to be used.
 
-✅ Step 5: Load Your CSVs from Drive
+✅ Step 5: Load  CSVs from Drive
 Let’s say you’ve uploaded movies.csv and ratings.csv into a folder:
 /MyDrive/pyspark-movie-data/
 
-python
-Copy
-Edit
 movies_path = "/content/drive/MyDrive/pyspark-movie-data/movies.csv"
 ratings_path = "/content/drive/MyDrive/pyspark-movie-data/ratings.csv"
 
@@ -94,9 +72,6 @@ ratingsdf.show(5)
 ✅ Step 6: Continue with Your Movie Recommender Logic
 You can now proceed exactly like you would in Jupyter:
 
-python
-Copy
-Edit
 from pyspark.sql.functions import split, explode
 
 moviesdf = moviesdf.withColumn("genre", explode(split("genres", "\\|")))
